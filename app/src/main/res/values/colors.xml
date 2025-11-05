@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="schemeYellow">#F0E491</color>
+    <color name="schemeLime">#BBC863</color>
+    <color name="schemeGreen">#658C58</color>
+    <color name="schemeDarkGreen">#31694E</color>
+    <color name="sudokuOne">#FF35C7</color>
+    <color name="sudokuTwo">#2BFF00</color>
+    <color name="sudokuThree">#FFF200</color>
+    <color name="sudokuFour">#02C3FF</color>
+    <color name="sudokuFive">#FF5603</color>
+    <color name="sudokuSix">#9300FF</color>
+    <color name="sudokuSeven">#E3E3E3</color>
+    <color name="sudokuEight">#787672</color>
+    <color name="sudokuNine">#30302E</color>
+    <color name="red">#FF0000</color>
+    <color name="selectedNumber">#7F7F7F</color>
+</resources>
