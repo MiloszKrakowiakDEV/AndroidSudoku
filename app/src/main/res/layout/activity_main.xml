@@ -18,14 +18,14 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:textSize="40sp"
-            android:text="SUDOKU"
+            android:text="@string/sudoku"
             android:typeface="monospace"
             android:textAlignment="center"
             android:textColor="@color/schemeYellow"
             android:background="@color/schemeDarkGreen"
             android:paddingVertical="5dp"
             android:textStyle="bold"
-            android:letterSpacing="0.3"/>
+            android:letterSpacing="0.2"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -35,44 +35,44 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="@color/schemeLime">
+
             <Button
-                android:textSize="18sp"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="EASY"
-                android:layout_weight="1"
-                android:backgroundTint="@color/schemeLime"
-                android:textColor="@color/schemeDarkGreen"
                 android:id="@+id/btnDiffEasy"
-                />
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@color/schemeLime"
+                android:text="@string/easy"
+                android:textColor="#004D40"
+                android:textSize="18sp" />
             <View
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
                 android:background="@color/schemeGreen"/>
+
             <Button
-                android:textSize="18sp"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="MEDIUM"
-                android:layout_weight="1"
-                android:backgroundTint="@color/schemeLime"
-                android:textColor="@color/schemeDarkGreen"
                 android:id="@+id/btnDiffMedium"
-                />
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@color/schemeLime"
+                android:text="@string/medium"
+                android:textColor="#004D40"
+                android:textSize="18sp" />
             <View
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
                 android:background="@color/schemeGreen"/>
+
             <Button
-                android:textSize="18sp"
+                android:id="@+id/btnDiffHard"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="HARD"
                 android:layout_weight="1"
                 android:backgroundTint="@color/schemeLime"
-                android:textColor="@color/schemeDarkGreen"
-                android:id="@+id/btnDiffHard"
-                />
+                android:text="@string/hard"
+                android:textColor="#004D40"
+                android:textSize="18sp" />
 
         </LinearLayout>
         <View
@@ -89,7 +89,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Playing:"
+                android:text="@string/playing"
                 android:textSize="25sp"
                 android:textColor="@color/schemeLime"
                 android:textAlignment="center"
@@ -98,7 +98,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Selected:"
+                android:text="@string/selected"
                 android:textSize="25sp"
                 android:textColor="@color/schemeLime"
                 android:textAlignment="center"
@@ -107,7 +107,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Timer:\n WIP"
+                android:text="@string/timer_n_wip"
                 android:textSize="25sp"
                 android:textColor="@color/schemeLime"
                 android:textAlignment="center"
@@ -147,7 +147,7 @@
                 android:layout_weight="1"
                 android:textSize="30sp"
                 android:textAlignment="center"
-                android:text="1"
+                android:text="@string/_1"
                 android:textColor="@color/white"
                 android:background="@color/sudokuOne"
                 android:shadowColor="@color/black"
@@ -160,7 +160,7 @@
                 android:layout_weight="1"
                 android:textSize="30sp"
                 android:textAlignment="center"
-                android:text="2"
+                android:text="@string/_2"
                 android:textColor="@color/white"
                 android:background="@color/sudokuTwo"
                 android:shadowColor="@color/black"
@@ -173,7 +173,7 @@
                 android:layout_weight="1"
                 android:textSize="30sp"
                 android:textAlignment="center"
-                android:text="3"
+                android:text="@string/_3"
                 android:textColor="@color/white"
                 android:background="@color/sudokuThree"
                 android:shadowColor="@color/black"
@@ -186,7 +186,7 @@
                 android:layout_weight="1"
                 android:textSize="30sp"
                 android:textAlignment="center"
-                android:text="4"
+                android:text="@string/_4"
                 android:textColor="@color/white"
                 android:background="@color/sudokuFour"
                 android:shadowColor="@color/black"
@@ -199,7 +199,7 @@
                 android:layout_weight="1"
                 android:textSize="30sp"
                 android:textAlignment="center"
-                android:text="5"
+                android:text="@string/_5"
                 android:textColor="@color/white"
                 android:background="@color/sudokuFive"
                 android:shadowColor="@color/black"
@@ -212,7 +212,7 @@
                 android:layout_weight="1"
                 android:textSize="30sp"
                 android:textAlignment="center"
-                android:text="6"
+                android:text="@string/_6"
                 android:textColor="@color/white"
                 android:background="@color/sudokuSix"
                 android:shadowColor="@color/black"
@@ -225,7 +225,7 @@
                 android:layout_weight="1"
                 android:textSize="30sp"
                 android:textAlignment="center"
-                android:text="7"
+                android:text="@string/_7"
                 android:textColor="@color/white"
                 android:background="@color/sudokuSeven"
                 android:shadowColor="@color/black"
@@ -238,7 +238,7 @@
                 android:layout_weight="1"
                 android:textSize="30sp"
                 android:textAlignment="center"
-                android:text="8"
+                android:text="@string/_8"
                 android:textColor="@color/white"
                 android:background="@color/sudokuEight"
                 android:shadowColor="@color/black"
@@ -251,7 +251,7 @@
                 android:layout_weight="1"
                 android:textSize="30sp"
                 android:textAlignment="center"
-                android:text="9"
+                android:text="@string/_9"
                 android:textColor="@color/white"
                 android:background="@color/sudokuNine"
                 android:shadowColor="@color/black"
@@ -272,27 +272,28 @@
             android:background="@color/schemeLime">
 
             <Button
-                android:textSize="18sp"
+                android:id="@+id/btnRestart"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="RESTART"
                 android:backgroundTint="@color/schemeLime"
-                android:textColor="@color/schemeDarkGreen"
-                android:id="@+id/btnRestart"/>
+                android:text="@string/restart"
+                android:textColor="#004D40"
+                android:textSize="18sp" />
             <View
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
                 android:background="@color/schemeGreen"/>
+
             <Button
-                android:textSize="18sp"
+                android:id="@+id/btnHighscores"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="HIGHSCORES"
                 android:backgroundTint="@color/schemeLime"
-                android:textColor="@color/schemeDarkGreen"
-                android:id="@+id/btnHighscores"/>
+                android:text="@string/highscores"
+                android:textColor="#004D40"
+                android:textSize="18sp" />
         </LinearLayout>
 
     </LinearLayout>

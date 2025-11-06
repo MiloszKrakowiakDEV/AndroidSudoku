@@ -1,19 +1,13 @@
 package pl.gornik.androidsudoku;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,13 +30,13 @@ import java.util.Random;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
-    SoundPool soundPool;
-    int confettiSoundId;
+    private SoundPool soundPool;
+    private int confettiSoundId;
     private int selectedNumber = 1;
     private boolean[][] allowChangingNumber = new boolean[9][9];
 
     private int visibleSquares = 38;
-    private int secondsElapsed = 0;
+    private final int secondsElapsed = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,13 +78,14 @@ public class MainActivity extends AppCompatActivity {
                                 .getChildAt(0)).getChildAt(0));
                 if (String.valueOf(sudokuCellText.getText()).equalsIgnoreCase(String.valueOf(selectedNumber))) {
                     sudokuCellText.setBackgroundColor(getColor(R.color.selectedNumber));
-                    if (countNumbers[Integer.valueOf((String) sudokuCellText.getText())] == 9 && isValid(board, i, j, board[i][j])) {
-                        sudokuCellText.setBackgroundColor(colorsIDs[Integer.valueOf((String) sudokuCellText.getText())]);
+                    if (countNumbers[Integer.parseInt(
+                            (String) sudokuCellText.getText())] == 9 && isValid(board, i, j, board[i][j])) {
+                        sudokuCellText.setBackgroundColor(colorsIDs[Integer.parseInt((String) sudokuCellText.getText())]);
                     }
                 } else {
                     sudokuCellText.setBackgroundColor(0);
                 }
-                if (!sudokuCellText.getText().isEmpty()) {
+                if (!sudokuCellText.getText().equals("")) {
                     if (!isValid(board, i, j, board[i][j])) {
                         sudokuCellText.setBackgroundColor(getColor(R.color.red));
                     }
@@ -115,32 +110,38 @@ public class MainActivity extends AppCompatActivity {
                 int finalI = i;
                 int finalJ = j;
                 if (allowChangingNumber[finalI][finalJ]) {
-                    sudokuCellText.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (board[finalI][finalJ] == selectedNumber) {
-                                sudokuCellText.setText("");
-                                board[finalI][finalJ] = 0;
-                            } else {
-                                sudokuCellText.setText(String.valueOf(selectedNumber));
-                                board[finalI][finalJ] = selectedNumber;
-                            }
-                            updateDisplayBoardColors(board, tileColorIDs);
-                            if (isSolvedBoard(board)) {
-                                //todo win
-                                int childIndex;
-                                for (int i = 0; i < 9; i++) {
-                                    for (int j = 0; j < 9; j++) {
-                                        childIndex = i * 9 + j;
-                                        TextView sudokuCellText = ((TextView)
-                                                ((LinearLayout) ((LinearLayout) sudokuGrid.getChildAt(childIndex))
-                                                        .getChildAt(0)).getChildAt(0));
-                                        sudokuCellText.setBackgroundColor(tileColorIDs[Integer.valueOf((String) sudokuCellText.getText())]);
-                                        sudokuCellText.setOnClickListener(null);
-                                    }
+                    sudokuCellText.setOnClickListener(v -> {
+                        if (board[finalI][finalJ] == selectedNumber) {
+                            sudokuCellText.setText("");
+                            board[finalI][finalJ] = 0;
+                        } else {
+                            sudokuCellText.setText(String.valueOf(selectedNumber));
+                            board[finalI][finalJ] = selectedNumber;
+                        }
+                        updateDisplayBoardColors(board, tileColorIDs);
+                        if (isSolvedBoard(board)) {
+                            int childIndex;
+                            for (int i1 = 0; i1 < 9; i1++) {
+                                for (int j1 = 0; j1 < 9; j1++) {
+                                    childIndex = i1 * 9 + j1;
+                                    TextView sudokuCellText1 = ((TextView)
+                                            ((LinearLayout) ((LinearLayout) sudokuGrid.getChildAt(childIndex))
+                                                    .getChildAt(0)).getChildAt(0));
+                                    sudokuCellText1.setBackgroundColor(
+                                            tileColorIDs[Integer.parseInt((String) sudokuCellText1.getText())]);
+                                    sudokuCellText1.setOnClickListener(null);
                                 }
-                                soundPool.play(confettiSoundId,1,1,0,0,1);
                             }
+                            LinearLayout layoutSudokuNumbersContainer = findViewById(R.id.numberBtnLayout);
+                            for (int i1 = 0; i1 < layoutSudokuNumbersContainer.getChildCount(); i1++) {
+                                View child = layoutSudokuNumbersContainer.getChildAt(i1);
+                                if (child instanceof TextView) {
+                                    TextView numberView = (TextView) child;
+                                    numberView.setOnClickListener(null);
+                                }
+
+                            }
+                            soundPool.play(confettiSoundId,1,1,0,0,1);
                         }
                     });
                 } else {
@@ -191,101 +192,78 @@ public class MainActivity extends AppCompatActivity {
             if (child instanceof TextView) {
                 TextView numberView = (TextView) child;
                 int finalI = i;
-                numberView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        selectedNumber = finalI + 1;
-                        updateSelectedNumberDisplay();
-                        updateDisplayBoardColors(board, tileColorIDs);
+                numberView.setOnClickListener(v -> {
+                    selectedNumber = finalI + 1;
+                    updateSelectedNumberDisplay();
+                    updateDisplayBoardColors(board, tileColorIDs);
 
-                    }
                 });
             }
 
         }
         Button restartBtn = findViewById(R.id.btnRestart);
         Button highscoresBtn = findViewById(R.id.btnHighscores);
-        restartBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(v.getContext()).setCancelable(true).setMessage("All your progress will be gone").
-                        setTitle("Restart?").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        }).setPositiveButton("Restart", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                GridLayout sudokuGrid = findViewById(R.id.sudokuGrid);
-                                sudokuGrid.removeViews(0,81);
-                                restart();
-                            }
-                        }).show();
-            }
-        });
+        restartBtn.setOnClickListener(v -> new AlertDialog.Builder(v.getContext()).setCancelable(true).setMessage("All your progress will be gone").
+                setTitle("Restart?").setNegativeButton("Cancel", (dialog, which) -> {
+                }).setPositiveButton("Restart", (dialog, which) -> {
+                    GridLayout sudokuGrid = findViewById(R.id.sudokuGrid);
+                    sudokuGrid.removeViews(0,81);
+                    restart();
+                }).show());
         //todo highscores
         Button btnDiffEasy = findViewById(R.id.btnDiffEasy);
         Button btnDiffMedium = findViewById(R.id.btnDiffMedium);
         Button btnDiffHard = findViewById(R.id.btnDiffHard);
-        btnDiffEasy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                visibleSquares=38;
-                TextView textSelected = findViewById(R.id.selectedText);
-                String difficulty = "";
-                switch (visibleSquares){
-                    case 38:
-                        difficulty="EASY";
-                        break;
-                    case 32:
-                        difficulty="MEDIUM";
-                        break;
-                    case 26:
-                        difficulty="HARD";
-                        break;
-                }
-                textSelected.setText("Selected:\n"+difficulty);
+        btnDiffEasy.setOnClickListener(v -> {
+            visibleSquares=38;
+            TextView textSelected = findViewById(R.id.selectedText);
+            String difficulty = "";
+            switch (visibleSquares){
+                case 38:
+                    difficulty="EASY";
+                    break;
+                case 32:
+                    difficulty="MEDIUM";
+                    break;
+                case 26:
+                    difficulty="HARD";
+                    break;
             }
+            textSelected.setText("Selected:\n"+difficulty);
         });
-        btnDiffMedium.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                visibleSquares=32;
-                TextView textSelected = findViewById(R.id.selectedText);
-                String difficulty = "";
-                switch (visibleSquares){
-                    case 38:
-                        difficulty="EASY";
-                        break;
-                    case 32:
-                        difficulty="MEDIUM";
-                        break;
-                    case 26:
-                        difficulty="HARD";
-                        break;
-                }
-                textSelected.setText("Selected:\n"+difficulty);
+        btnDiffMedium.setOnClickListener(v -> {
+            visibleSquares=32;
+            TextView textSelected = findViewById(R.id.selectedText);
+            String difficulty = "";
+            switch (visibleSquares){
+                case 38:
+                    difficulty="EASY";
+                    break;
+                case 32:
+                    difficulty="MEDIUM";
+                    break;
+                case 26:
+                    difficulty="HARD";
+                    break;
             }
+            textSelected.setText("Selected:\n"+difficulty);
         });
-        btnDiffHard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                visibleSquares=26;
-                TextView textSelected = findViewById(R.id.selectedText);
-                String difficulty = "";
-                switch (visibleSquares){
-                    case 38:
-                        difficulty="EASY";
-                        break;
-                    case 32:
-                        difficulty="MEDIUM";
-                        break;
-                    case 26:
-                        difficulty="HARD";
-                        break;
-                }
-                textSelected.setText("Selected:\n"+difficulty);
+        btnDiffHard.setOnClickListener(v -> {
+            visibleSquares=26;
+            TextView textSelected = findViewById(R.id.selectedText);
+            String difficulty = "";
+            switch (visibleSquares){
+                case 38:
+                    difficulty="EASY";
+                    break;
+                case 32:
+                    difficulty="MEDIUM";
+                    break;
+                case 26:
+                    difficulty="HARD";
+                    break;
             }
+            textSelected.setText("Selected:\n"+difficulty);
         });
     }
 
@@ -482,7 +460,7 @@ public class MainActivity extends AppCompatActivity {
         List<Integer[]> coordinatesRowColList = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                coordinatesRowColList.add(new Integer[]{Integer.valueOf(i), Integer.valueOf(j)});
+                coordinatesRowColList.add(new Integer[]{i, j});
                 obscuredBoard[i][j] = board[i][j];
             }
         }
